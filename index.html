@@ -6,25 +6,12 @@ Setting the BODY's background to the average color in the following image:
 <img id="i">
 </html>
 <script>
-function toDataURL(url, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.onload = function() {
-    var reader = new FileReader();
-    reader.onloadend = function() {
-      callback(reader.result);
-    }
-    reader.readAsDataURL(xhr.response);
-  };
-  xhr.open('GET', url);
-  xhr.responseType = 'blob';
-  xhr.send();
+document.getElementById('i').onload = function () {
+   make()
 }
-
-toDataURL('https://is2-ssl.mzstatic.com/image/thumb/Music126/v4/a1/98/a0/a198a0ae-3fe0-a780-b012-0c20b76bc96d/14UMGIM59293.rgb.jpg/64x64bb.jpg', function(dataUrl) {
- var bbk = ('RESULT:', dataUrl)
-})
-document.getElementById('i').src = "data:image/jpg;base64," + bbk;
-var rgb = 
+document.getElementById('i').src = "https://is2-ssl.mzstatic.com/image/thumb/Music126/v4/a1/98/a0/a198a0ae-3fe0-a780-b012-0c20b76bc96d/14UMGIM59293.rgb.jpg/64x64bb.jpg" ;
+function make(){
+  var rgb = 
 getAverageRGB(document.getElementById('i'));
     document.body.style.backgroundColor = 'rgb('+rgb.r+','+rgb.g+','+rgb.b+')';
 
@@ -72,5 +59,6 @@ function getAverageRGB(imgEl) {
     
 document.title = rgb.r +','+ rgb.g+','+ rgb.b;
     
+}
 }
 </script>
