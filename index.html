@@ -1,1 +1,76 @@
-O que é um átomo?∞Quem é esse macaco?§oqueumtomo≈0≈oqueeumtomo≈0≈oqueeumatomo≈0≈oqueumtomo≈0≈oqueehumatomo≈0≈oqueehumtomo≈0≈atomo≈0≈tomo≈0≈oqumatomo≈0≈oqumtomo≈0≈oqeumtomo≈0≈oqeumatomo≈0≈macacofofo≈1≈mamacofofo≈1≈mamaco≈1≈macaco≈1≈fofura≈1≈macaquinho≈1≈macaquinhofofo≈1≈quemessemacaco≈1≈quemeessemacaco≈1≈quemacacoesse≈1≈quemacacoeesse≈1≈macaccosorrindo≈1≈macacosorrindo≈1≈mamacosorrindo≈1≈
+<html>
+Setting the BODY's background to the average color in the following image:
+
+<br><br>
+
+<img id="i">
+</html>
+<script>
+function toDataURL(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      callback(reader.result);
+    }
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
+
+toDataURL('https://is2-ssl.mzstatic.com/image/thumb/Music126/v4/a1/98/a0/a198a0ae-3fe0-a780-b012-0c20b76bc96d/14UMGIM59293.rgb.jpg/64x64bb.jpg', function(dataUrl) {
+ var bbk = ('RESULT:', dataUrl)
+})
+document.getElementById('i').src = "data:image/jpg;base64," + bbk;
+var rgb = 
+getAverageRGB(document.getElementById('i'));
+    document.body.style.backgroundColor = 'rgb('+rgb.r+','+rgb.g+','+rgb.b+')';
+
+function getAverageRGB(imgEl) {
+    
+    var blockSize = 5, // only visit every 5 pixels
+        defaultRGB = {r:0,g:0,b:0}, // for non-supporting envs
+        canvas = document.createElement('canvas'),
+        context = canvas.getContext && canvas.getContext('2d'),
+        data, width, height,
+        i = -4,
+        length,
+        rgb = {r:0,g:0,b:0},
+        count = 0;
+        
+    if (!context) {
+        return defaultRGB;
+    }
+    
+    height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+    width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+    
+    context.drawImage(imgEl, 0, 0);
+    
+    try {
+        data = context.getImageData(0, 0, width, height);
+    } catch(e) {
+        /* security error, img on diff domain */alert('x');
+        return defaultRGB;
+    }
+    
+    length = data.data.length;
+    
+    while ( (i += blockSize * 4) < length ) {
+        ++count;
+        rgb.r += data.data[i];
+        rgb.g += data.data[i+1];
+        rgb.b += data.data[i+2];
+    }
+    
+    // ~~ used to floor values
+    rgb.r = ~~(rgb.r/count);
+    rgb.g = ~~(rgb.g/count);
+    rgb.b = ~~(rgb.b/count);
+    
+document.title = rgb.r +','+ rgb.g+','+ rgb.b;
+    
+}
+</script>
